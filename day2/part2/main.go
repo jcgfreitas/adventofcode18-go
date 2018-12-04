@@ -4,9 +4,12 @@ import (
 	"fmt"
 	"io/ioutil"
 	"strings"
+	"time"
 )
 
 func main(){
+	defer timeTrack(time.Now())
+
 	data, err := ioutil.ReadFile("input.txt")
 	if err != nil {
 		fmt.Println(err)
@@ -29,6 +32,7 @@ func main(){
 				g[pos][j] +=1
 				if g[pos][j] == len(ids[0]) -1 {
 					fmt.Printf("result: %s\n", result(ids[pos], ids[j]))
+					return
 				}
 			}
 			m[c] = append(s, j)
@@ -44,4 +48,9 @@ func result(s1 string, s2 string) string {
 		}
 	}
 	return string(res)
+}
+
+func timeTrack(start time.Time){
+	elapsed := time.Since(start).String()
+	fmt.Printf("elapsed time :%s", elapsed)
 }
